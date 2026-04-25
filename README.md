@@ -31,7 +31,7 @@
 
 | Name | Category | Status | Description |
 |------|----------|--------|-------------|
-| `cto` | workflow | stable | 技術主管工作流程工具集（setup、arch-review） |
+| `cto` | workflow | stable | 技術主管工作流程工具集（setup、arch-review、1on1-prep、1on1、perf-review） |
 | `dev` | workflow | stable | 開發工作流程輔助工具集（setup、commit-message、post-commit、post-bug、archive-plan） |
 
 ---
