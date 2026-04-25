@@ -32,7 +32,7 @@
 | Name | Category | Status | Description |
 |------|----------|--------|-------------|
 | `cto` | workflow | stable | 技術主管工作流程工具集（setup、arch-review） |
-| `dev` | workflow | stable | 開發工作流程輔助工具集（commit-message、post-commit、post-bug） |
+| `dev` | workflow | stable | 開發工作流程輔助工具集（setup、commit-message、post-commit、post-bug、archive-plan） |
 
 ---
 

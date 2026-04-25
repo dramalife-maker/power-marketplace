@@ -8,11 +8,7 @@
     "total_plugins": 2
   },
   "categories": {
-    "git": "Git 與版本控制",
-    "workflow": "個人工作流程自動化",
-    "code-review": "Code review 輔助",
-    "browser": "瀏覽器控制",
-    "misc": "實驗性或未分類"
+    "workflow": "個人工作流程自動化"
   },
   "plugins": [
     {
@@ -37,7 +33,7 @@
       "status": "stable",
       "path": "plugins/dev/",
       "updated_at": "2026-04-25",
-      "skills": ["commit-message", "post-commit", "post-bug"]
+      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan"]
     }
   ]
 }
