@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "index.schema.json",
+  "title": "Plugin Index",
+  "description": "Global catalog of all plugins in power-marketplace",
+  "type": "object",
+  "required": ["meta", "categories", "plugins"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["name", "owner", "description", "updated_at", "total_plugins"],
+      "properties": {
+        "name": { "type": "string" },
+        "owner": { "type": "string" },
+        "description": { "type": "string" },
+        "updated_at": { "type": "string", "format": "date" },
+        "total_plugins": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "categories": {
+      "type": "object",
+      "description": "Map of category key to human-readable description",
+      "additionalProperties": { "type": "string" }
+    },
+    "plugins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "display_name", "version", "category", "description", "tags", "status", "path", "updated_at"],
+        "properties": {
+          "name": { "type": "string" },
+          "display_name": { "type": "string" },
+          "version": { "type": "string" },
+          "category": { "type": "string" },
+          "description": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "status": { "type": "string", "enum": ["stable", "beta", "wip", "deprecated"] },
+          "path": { "type": "string", "description": "Relative path to plugin directory, e.g. plugins/git/post-commit/" },
+          "updated_at": { "type": "string", "format": "date" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

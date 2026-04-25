@@ -1,0 +1,18 @@
+{
+  "name": "power-marketplace",
+  "owner": {
+    "name": "powersafe.lin@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "dev",
+      "source": "./plugins/dev",
+      "description": "開發工作流程輔助工具集"
+    },
+    {
+      "name": "cto",
+      "source": "./plugins/cto",
+      "description": "技術主管工作流程工具集"
+    }
+  ]
+}

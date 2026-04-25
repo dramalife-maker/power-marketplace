@@ -1,0 +1,43 @@
+{
+  "$schema": "./_schema/index.schema.json",
+  "meta": {
+    "name": "power-marketplace",
+    "owner": "powersafe.lin@gmail.com",
+    "description": "個人 Claude Code Skills Marketplace",
+    "updated_at": "2026-04-25",
+    "total_plugins": 2
+  },
+  "categories": {
+    "git": "Git 與版本控制",
+    "workflow": "個人工作流程自動化",
+    "code-review": "Code review 輔助",
+    "browser": "瀏覽器控制",
+    "misc": "實驗性或未分類"
+  },
+  "plugins": [
+    {
+      "name": "cto",
+      "display_name": "CTO Plugin",
+      "version": "1.0.0",
+      "category": "workflow",
+      "description": "技術主管工作流程工具集",
+      "tags": ["cto", "review", "1on1"],
+      "status": "stable",
+      "path": "plugins/cto/",
+      "updated_at": "2026-04-25",
+      "skills": ["setup", "arch-review"]
+    },
+    {
+      "name": "dev",
+      "display_name": "Dev Plugin",
+      "version": "1.0.0",
+      "category": "workflow",
+      "description": "開發工作流程輔助工具集",
+      "tags": ["dev", "workflow"],
+      "status": "stable",
+      "path": "plugins/dev/",
+      "updated_at": "2026-04-25",
+      "skills": ["commit-message", "post-commit", "post-bug"]
+    }
+  ]
+}
