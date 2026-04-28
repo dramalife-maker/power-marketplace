@@ -14,14 +14,14 @@
     {
       "name": "cto",
       "display_name": "CTO Plugin",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "workflow",
       "description": "技術主管工作流程工具集",
       "tags": ["cto", "review", "1on1"],
       "status": "stable",
       "path": "plugins/cto/",
-      "updated_at": "2026-04-25",
-      "skills": ["setup", "arch-review", "1on1-prep", "1on1", "perf-review"]
+      "updated_at": "2026-04-28",
+      "skills": ["setup", "arch-review", "1on1-prep", "1on1", "1on1-add", "perf-review"]
     },
     {
       "name": "dev",

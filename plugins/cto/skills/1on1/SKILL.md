@@ -70,23 +70,22 @@ description: >
 
 ## Step 4：寫入紀錄
 
+目錄結構、`index.md` 格式、`_notes.md` 格式、初次建立規則，見
+`~/.claude/plugins/cto/references/1on1-writing-rules.md`。
+
 使用者確認後，執行以下寫入：
 
-**`YYYY-MM.md`**：附加本次記錄（不覆蓋現有內容）
+**`YYYY-MM.md`**：在末尾附加本次記錄（前置分隔符 `---`，不覆蓋現有內容）
 
-**`index.md`**：新增一行
+**`index.md`**：新增一行，類型填 `1on1`：
 
-```markdown
-| <YYYY-MM-DD> | 1on1 | <一句話摘要本次主題> | [<YYYY-MM>](./<YYYY-MM>.md) |
+```
+| YYYY-MM-DD | 1on1 | <一句話摘要本次主題> | [YYYY-MM](./YYYY-MM.md) |
 ```
 
 **`_notes.md`**（選擇性更新）：若本次觀察到跨時間的新行為模式或成長跡象，詢問使用者是否更新：
 
 > 「我觀察到 <模式>，要更新到長期觀察紀錄嗎？」
-
-### 初次建立
-
-若 `~/1on1/<工程師名字>/` 不存在，自動建立目錄與三個空白檔案（`index.md`、`YYYY-MM.md`、`_notes.md`）。
 
 ---
 

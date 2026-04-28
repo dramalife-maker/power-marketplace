@@ -98,19 +98,11 @@ description: >
 
 等使用者確認後才執行寫入。
 
-### 目錄結構
+目錄結構、`index.md` 格式、`_notes.md` 格式、初次建立規則，見
+`~/.claude/plugins/cto/references/1on1-writing-rules.md`。
 
-```
-~/1on1/
-└── <工程師名字>/
-    ├── index.md        # 所有紀錄的一行摘要 + 月份連結，1on1 前先讀這個
-    ├── YYYY-MM.md      # 當月詳細紀錄，月底自動封存
-    └── _notes.md       # 長期行為模式、成長軌跡（非流水帳，定期整理）
-```
+### YYYY-MM.md 寫入格式
 
-### 各檔案寫入規則
-
-**`YYYY-MM.md`**（主要寫入目標）：
 ```markdown
 ## YYYY-MM-DD 架構審查：<功能名稱>
 
@@ -130,32 +122,13 @@ description: >
 - [ ] <退回修改的項目或待確認事項>
 ```
 
-**`index.md`**（每次寫入後同步更新，只加一行）：
-```markdown
-# <工程師名字> 1on1 Index
+### index.md 同步更新
 
-| 日期 | 類型 | 主題 | 檔案 |
-|------|------|------|------|
-| 2026-04-25 | 架構審查 | Transfer Records 優化 | [2026-04](./2026-04.md) |
+每次寫入後新增一行，類型填 `架構審查`：
+
 ```
-
-**`_notes.md`**（不是每次都寫，只有觀察到跨時間的行為模式時才更新）：
-```markdown
-# <工程師名字> 長期觀察
-
-## 思維模式
-- 傾向選實作快的方案，對維運成本敏感度不足（初次觀察：2026-04）
-
-## 成長跡象
-- ...
-
-## 長期追蹤項目
-- [ ] ...
+| YYYY-MM-DD | 架構審查 | <功能名稱> | [YYYY-MM](./YYYY-MM.md) |
 ```
-
-### 初次建立
-
-若 `~/1on1/<工程師名字>/` 不存在，自動建立目錄與三個空白檔案。
 
 ---
 
@@ -177,4 +150,5 @@ description: >
 
 ## 參考文件
 
-- `references/general-criteria.md`：無 CLAUDE.md 時的通用審查標準
+- `~/.claude/plugins/cto/skills/arch-review/references/general-criteria.md`：無 CLAUDE.md 時的通用審查標準
+- `~/.claude/plugins/cto/references/1on1-writing-rules.md`：1on1 紀錄寫入規則（共用）
