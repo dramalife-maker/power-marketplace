@@ -33,7 +33,7 @@
       "status": "stable",
       "path": "plugins/dev/",
       "updated_at": "2026-04-25",
-      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan", "grill-me"]
+      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan", "grill-me", "release"]
     }
   ]
 }
