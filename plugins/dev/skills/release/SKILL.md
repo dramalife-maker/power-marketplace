@@ -6,7 +6,7 @@ metadata:
     version: "1.1.0"
 ---
 
-# Release Manager
+# Release Assistant
 
 This skill guides the AI through the formal release process, ensuring that Changelogs are accurate, commits are standardized, and tags are correctly pushed.
 

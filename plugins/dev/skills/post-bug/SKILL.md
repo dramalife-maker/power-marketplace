@@ -34,7 +34,7 @@ description: 從過往執行經驗中學習並優化策略，含記錄使用者�
 5. 競態條件 (race condition) - 併發、時序問題、race condition
 6. 遺留技術債 (technical debt) - 舊程式碼問題、過時依賴
 
-錯誤筆記放置於 `.claude/docs/learning-notes` 資料夾中。再根據錯誤類型，建立相應的資料夾，並且將錯誤筆記放置於其中。
+錯誤筆記放置於**專案內**的 `.claude/docs/learning-notes` 資料夾中（若不存在則建立）。再根據錯誤類型，建立相應的資料夾，並且將錯誤筆記放置於其中。
 
 每則筆記**必須在開頭加上 TL;DR 區塊**（用 `<tl;dr>...</tl;dr>` 標籤包住），方便 agent 在筆記變多時只讀濃縮重點、不載入全文，以節省 context：
 
