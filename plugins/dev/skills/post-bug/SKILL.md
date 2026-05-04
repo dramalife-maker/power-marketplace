@@ -22,6 +22,7 @@ description: 從過往執行經驗中學習並優化策略，含記錄使用者�
 
 2. 主 agent 呼叫 `Agent` tool，參數設定：
    - `run_in_background: true`
+   - `model: "haiku"`
    - `prompt`：將上述所有資訊以**完整自包含**的文字傳入，並附上本 SKILL.md 的完整撰寫規範（TL;DR 格式、index.md 更新規則等），讓 sub-agent 不需對話 context 也能獨立完成任務。
 
 3. 主 agent 啟動 sub-agent 後**立即回到與使用者的對話**，無須等待結果。
