@@ -7,6 +7,28 @@ description: 從過往執行經驗中學習並優化策略，含記錄使用者�
 將關鍵問題、原因分析、解決方法與預防策略整理為結構化錯誤筆記。
 使用 doc-coauthoring skill 協作維護錯誤筆記，確保內容可持續更新與共享。
 
+## 執行方式：委派 Sub-agent 背景撰寫
+
+**撰寫筆記的工作必須全部委派給 sub-agent 背景執行**，不得由主 agent 親自寫入，以避免阻塞主 agent 與使用者的後續對話。
+
+步驟：
+
+1. 主 agent 從對話中整理出以下資訊（純文字摘要即可，不需讀任何檔案）：
+   - 今日日期（`YYYY-MM-DD`）
+   - 錯誤類型（可多個：typo / knowledge-gap / architecture-defect / requirement-misunderstanding / race-condition / technical-debt）
+   - 問題描述、錯誤原因、解決方法、避免方法
+   - 使用者意圖（為什麼要這樣改、想避免什麼）
+   - 相關檔案路徑（若有）
+
+2. 主 agent 呼叫 `Agent` tool，參數設定：
+   - `run_in_background: true`
+   - `model: "haiku"`
+   - `prompt`：將上述所有資訊以**完整自包含**的文字傳入，並附上本 SKILL.md 的完整撰寫規範（TL;DR 格式、index.md 更新規則等），讓 sub-agent 不需對話 context 也能獨立完成任務。
+
+3. 主 agent 啟動 sub-agent 後**立即回到與使用者的對話**，無須等待結果。
+
+> Sub-agent 會在背景完成：建立資料夾 → 寫筆記（含 TL;DR）→ 更新 index.md（僅新增列，不覆寫）。
+
 ## 使用者意圖（與「怎麼修」同等重要）
 
 僅記錄「bug 是什麼、怎麼改」不足以讓下次開發對齊使用者的目標。**必須從對話中推敲並寫下：使用者為什麼希望換寫法、想防什麼、想優化什麼**（一句話到一小段即可，勿空泛）。
