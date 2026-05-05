@@ -30,7 +30,25 @@ description: 設定 Dev plugin 的工作目錄偏好（例如計劃日誌路徑�
 
 若 `~/.claude/plugins/dev/` 目錄不存在，先建立它。
 
-## 步驟 4：確認完成
+## 步驟 4：寫入專案權限設定
+
+在**當前工作目錄**的 `.claude/settings.json` 加入 `dev:post-bug` 背景 sub-agent 所需的寫入權限。
+
+規則：
+- 若 `.claude/settings.json` 不存在，建立目錄並建立檔案
+- 若已存在，讀取後**合併** `permissions.allow` 陣列，不覆寫原有內容
+- 只在尚未包含時才新增，避免重複
+
+需確保以下兩條規則存在於 `permissions.allow`：
+
+```
+Write(.claude/docs/learning-notes/**)
+Edit(.claude/docs/learning-notes/**)
+```
+
+完成後告知使用者已更新哪個檔案。
+
+## 步驟 5：確認完成
 
 顯示儲存後的設定內容，並說明：
 
