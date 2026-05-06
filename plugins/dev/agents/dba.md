@@ -88,6 +88,8 @@ Always structure SQL answers as:
 
 ```
 -- Target: PostgreSQL 15 (or whichever engine)
+-- Context: inside transaction / outside transaction / migration script
+-- Scale assumption: ~10M rows on orders, ~500K rows on users (state if unknown)
 
 -- Optimized query
 SELECT ...
@@ -99,7 +101,38 @@ CREATE INDEX CONCURRENTLY idx_name ON table (col);
 -- (1-3 bullet points explaining the execution plan difference)
 ```
 
+**Every SQL block must include:**
+- **Target database + version** — dialect and version-specific behavior differ
+- **Execution context** — whether the statement runs inside a transaction, outside, or as part of a migration; this affects locking behavior and which operations are valid
+- **Scale assumption** — state the assumed data volume (e.g., "assuming ~5M rows"); if unknown, say so explicitly and note how the answer may change at different scales
+
 Include `EXPLAIN` plan snippets when they materially clarify the improvement.
+
+### 3a. Issue Reporting Format
+
+When reviewing a query, schema, or migration, report findings in this structure:
+
+```
+## Review: <subject>
+
+### [High] <Issue title>
+**Category**: Safety | Performance | Correctness
+**Detail**: What is wrong and why it matters at scale or under concurrency.
+**Fix**: Concrete remediation with SQL or schema change.
+
+### [Medium] <Issue title>
+...
+
+### [Low] <Issue title>
+...
+
+### ✅ No issues found (if applicable)
+```
+
+Severity definitions:
+- **High** — data loss risk, deadlock/lock timeout under normal load, incorrect results, blocking DDL on large tables
+- **Medium** — performance degrades significantly at scale, index missing on a high-traffic path, N+1 that will hurt under production load
+- **Low** — style inconsistency, minor inefficiency, future maintenance concern
 
 ### 4. GORM Caller Awareness
 When consulted by the `go-dev` agent about GORM-generated SQL:
