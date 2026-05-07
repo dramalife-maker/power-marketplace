@@ -48,6 +48,27 @@ When a user asks for a suggested commit message, follow this process:
 [optional footer(s)]
 ```
 
+## Body Format Rules
+
+- **Use bullet points**, not prose paragraphs
+- **Each bullet: 1–2 sentences max** — state the point and stop
+- Focus on **why**, not what (the diff already shows what changed)
+- Omit the body entirely if the subject line is self-explanatory
+
+**Good:**
+```
+- Replace ⚠️ with ❌ to signal "must fix before merge", not just a warning.
+- Each issue now requires an actionable fix with file path or code snippet.
+- Step 4 skips confirmation if user intent is already explicit in args.
+```
+
+**Bad:**
+```
+This commit improves the review format by changing the warning emoji to a
+red cross emoji in order to make it clearer to reviewers that the issues
+listed are blocking issues that must be resolved before the MR can be merged...
+```
+
 ## Key Rules
 
 1. **Emoji is REQUIRED** - Every commit must start with an appropriate emoji
