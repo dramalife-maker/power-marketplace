@@ -95,20 +95,19 @@ BREAKING CHANGE: use JavaScript features not available in Node 6.
 ✨ feat(lang): add Polish language
 ```
 
-### Commit message with multi-paragraph body and multiple footers
+### Commit message with bullet-point body and multiple footers
 
 ```
 🐛 fix: prevent racing of requests
 
-Introduce a request id and a reference to latest request. Dismiss
-incoming responses other than from latest request.
-
-Remove timeouts which were used to mitigate the racing issue but are
-obsolete now.
+- Introduce a request id and a reference to latest request; dismiss incoming responses other than from latest request.
+- Remove timeouts that were used to mitigate the racing issue but are now obsolete.
 
 Reviewed-by: Z
 Refs: #123
 ```
+
+> Note: upstream Conventional Commits spec allows free-form paragraphs (see item 7 below), but this project requires bullet-point bodies — see the **Body Format Rules** section in `SKILL.md`.
 
 ## Specification
 
