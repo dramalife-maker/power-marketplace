@@ -3,7 +3,7 @@ name: dev:release
 description: Manage the software release process. Use when asked to prepare a release, update changelogs, or tag a version.
 metadata:
     author: "power"
-    version: "1.1.0"
+    version: "1.1.1"
 ---
 
 # Release Assistant
@@ -17,6 +17,10 @@ This skill guides the AI through the formal release process, ensuring that Chang
     -   Follow [Write Changelog Rules](references/write-changelog.md).
     -   Use [Read Git Log](references/read-git-log.md) to gather changes since the last version.
     -   Verify the date and version number.
+    -   **Update the version comparison links block at the bottom of the file** (do not omit):
+        -   Replace the existing `[Unreleased]` link to point at the new version tag: `[<new-version>]: .../compare/v<previous-version>...v<new-version>`
+        -   Re-add `[Unreleased]: .../compare/v<new-version>...develop` at the top of the links block.
+        -   If the links block is missing, add it per [write-changelog.md](references/write-changelog.md#版本連結).
 2.  **Review Changes**:
     -   Summarize the changes and suggested version number to the user.
     -   Wait for user confirmation that the changes are correct.
