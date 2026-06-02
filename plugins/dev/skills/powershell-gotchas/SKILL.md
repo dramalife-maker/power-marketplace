@@ -35,6 +35,7 @@ Keep entries short and concrete: the symptom, the cause, the fix.
 | Env var (read) | `$VAR` | `$env:VAR` |
 | Env var (set) | `export VAR=x` | `$env:VAR = 'x'` |
 | Null device | `/dev/null` | `$null` |
+| Run PS syntax via Bash tool | `if (...) {...}` in the Bash tool | use the PowerShell tool instead |
 
 ---
 
@@ -105,6 +106,22 @@ purely from EOL conversion.
 **Fix:** Before committing such a file, confirm there's a real change with
 `git diff <file>`. If the diff is empty (EOL-only), leave it out of the commit
 rather than staging a noise change. The warning itself is harmless.
+
+---
+
+### Running PowerShell syntax through the Bash tool errors out
+
+**Symptom:** A command like `if (Test-Path x) { Remove-Item x }` fails with
+`syntax error near unexpected token '{'` — the parentheses-and-brace form is
+not valid bash.
+
+**Cause:** The Bash tool runs commands through bash, not PowerShell. PowerShell
+control-flow (`if (...) {...}`, `foreach`, `Test-Path`, cmdlets) is bash syntax
+error territory; bash expects `if [ ... ]; then ... fi`.
+
+**Fix:** Run PowerShell syntax through the PowerShell tool, not the Bash tool.
+Reserve the Bash tool for POSIX/bash one-liners. If you must invoke PowerShell
+from a bash context, wrap it: `pwsh -c '<powershell here>'`.
 
 ---
 
