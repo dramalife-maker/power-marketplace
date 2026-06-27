@@ -1,12 +1,13 @@
 # power-marketplace
 
-個人 Claude Code Skills 私有倉庫，用於管理與備份自製 skills。
+個人 Claude Code Skills / Kiro Powers 私有倉庫，同時支援兩套 AI 開發工具。
 
 ## 目錄
 
 - [安裝 Marketplace](#安裝-marketplace)
 - [瀏覽 Skills](#瀏覽-skills)
-- [安裝個別 Plugin](#安裝個別-plugin)
+- [安裝個別 Plugin（Claude Code）](#安裝個別-plugin)
+- [安裝 Kiro Power](#安裝-kiro-power)
 - [新增 / 更新 Skill](#新增--更新-skill)
 - [目錄結構說明](#目錄結構說明)
 - [Skill 狀態說明](#skill-狀態說明)
@@ -29,14 +30,16 @@
 
 所有可用的 plugins 列在 [index.json](./index.json)。
 
-| Name | Category | Status | Description |
-|------|----------|--------|-------------|
-| `cto` | workflow | stable | 技術主管工作流程工具集（setup、arch-review、1on1-prep、1on1、perf-review） |
-| `dev` | workflow | stable | 開發工作流程輔助工具集（setup、commit-message、post-commit、post-bug、archive-plan、grill-me、release） |
+| Name | Category | Status | Kiro | Description |
+|------|----------|--------|------|-------------|
+| `cto` | workflow | stable | ✅ | 技術主管工作流程工具集（setup、arch-review、1on1-prep、1on1、perf-review） |
+| `dev` | workflow | stable | ✅ | 開發工作流程輔助工具集（setup、commit-message、post-commit、post-bug、archive-plan、grill-me、release） |
 
 ---
 
 ## 安裝個別 Plugin
+
+### Claude Code
 
 ```bash
 /plugin install <skill-name>@power-marketplace
@@ -44,11 +47,26 @@
 
 ---
 
+## 安裝 Kiro Power
+
+在 Kiro IDE 中，從 GitHub URL 匯入：
+
+```
+https://github.com/dramalife-maker/power-marketplace/tree/main/plugins/dev/.kiro/POWER.md
+https://github.com/dramalife-maker/power-marketplace/tree/main/plugins/cto/.kiro/POWER.md
+```
+
+或克隆本 repo 後，在 Kiro 中以「本地目錄」方式安裝對應的 `.kiro/` 資料夾。
+
+> Kiro Power 在 keyword 觸發時自動載入，無需手動呼叫 slash command。
+
+---
+
 ## 新增 / 更新 Skill
 
 完整 SOP 請參考 [_templates/PACKAGING-GUIDE.md](./_templates/PACKAGING-GUIDE.md)。
 
-**快速 Checklist：**
+**快速 Checklist（Claude Code）：**
 
 1. 確認 SKILL.md 有正確的 YAML frontmatter（`name`, `description`）
 2. 建立 `plugins/<skill-name>/` 目錄結構
@@ -56,6 +74,12 @@
 4. 更新 `.claude-plugin/marketplace.json` 的 `plugins` 陣列
 5. 更新 `index.json`（新增條目、`total_plugins`、`updated_at`）
 6. Push 到 GitHub
+
+**額外 Checklist（支援 Kiro Power）：**
+
+1. 在 `plugins/<skill-name>/.kiro/POWER.md` 建立 Kiro Power manifest
+2. `index.json` 對應條目加上 `kiro_support: true` 與 `kiro_power_path`
+3. 更新兩個 `plugin.json` 版本號（patch +1）
 
 ---
 
@@ -66,13 +90,15 @@ power-marketplace/
 ├── .claude-plugin/
 │   └── marketplace.json       # Claude Code marketplace manifest（必要）
 ├── plugins/
-│   └── <skill-name>/
+│   └── <plugin-name>/
 │       ├── .claude-plugin/
 │       │   └── plugin.json    # Claude Code plugin manifest
+│       ├── .kiro/
+│       │   └── POWER.md       # Kiro Power manifest（kiro_support: true 時必備）
 │       └── skills/
 │           └── <skill-name>/
-│               └── SKILL.md   # 實際 skill 內容
-├── index.json                 # 人類可讀的全局索引
+│               └── SKILL.md   # Claude Code skill 內容
+├── index.json                 # 全局索引（含 kiro_support 欄位）
 ├── README.md
 ├── CHANGELOG.md
 ├── _schema/                   # JSON Schema 定義（文件用）

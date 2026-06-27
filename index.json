@@ -4,7 +4,7 @@
     "name": "power-marketplace",
     "owner": "powersafe.lin@gmail.com",
     "description": "個人 Claude Code Skills Marketplace",
-    "updated_at": "2026-04-28",
+    "updated_at": "2026-06-27",
     "total_plugins": 2
   },
   "categories": {
@@ -14,26 +14,30 @@
     {
       "name": "cto",
       "display_name": "CTO Plugin",
-      "version": "1.2.0",
+      "version": "1.2.4",
       "category": "workflow",
       "description": "技術主管工作流程工具集",
       "tags": ["cto", "review", "1on1"],
       "status": "stable",
       "path": "plugins/cto/",
-      "updated_at": "2026-04-28",
-      "skills": ["setup", "arch-review", "1on1-prep", "1on1", "1on1-add", "perf-review"]
+      "updated_at": "2026-06-27",
+      "skills": ["setup", "arch-review", "1on1-prep", "1on1", "1on1-add", "perf-review"],
+      "kiro_support": true,
+      "kiro_power_path": "plugins/cto/.kiro/POWER.md"
     },
     {
       "name": "dev",
       "display_name": "Dev Plugin",
-      "version": "1.2.0",
+      "version": "1.4.6",
       "category": "workflow",
       "description": "開發工作流程輔助工具集",
       "tags": ["dev", "workflow"],
       "status": "stable",
       "path": "plugins/dev/",
-      "updated_at": "2026-04-25",
-      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan", "grill-me", "release"]
+      "updated_at": "2026-06-27",
+      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan", "grill-me", "release"],
+      "kiro_support": true,
+      "kiro_power_path": "plugins/dev/.kiro/POWER.md"
     }
   ]
 }
