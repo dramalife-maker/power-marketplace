@@ -320,24 +320,31 @@ For each MR to review:
 ## Review: {MR title} (Round X)
 
 ### 📋 Previous round status (Round 2 only)
-| Item | Status | Notes |
-|------|--------|-------|
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| F1 | ... | Resolved / Unresolved / Partial | ... |
 
 ### ✅ Done well
 - ...
 
 ### ❌ Must fix
-| Severity | Issue | Fix |
-|----------|-------|-----|
-| [High] | ... | ... |
+| # | Severity | Issue | Fix |
+|---|----------|-------|-----|
+| F1 | [High] | ... | ... |
+| F2 | [Medium] | ... | ... |
 
 ### ❓ Questions to ask
-- ...
+- Q1 ...
+- Q2 ...
 
 ### 💡 Overall assessment
 
 By: AI Agent
 ```
+
+**Numbering rules:**
+- Every ❌ item is prefixed `F1`, `F2`… (Finding); every ❓ item is prefixed `Q1`, `Q2`… (Question). This lets follow-up discussion reference items unambiguously.
+- Round-2 "Previous round status" table reuses the prior round's IDs (`F1 → Resolved`); do not renumber.
 
 **Fact-check before publishing:** For any `[High]` item, verify with actual code paths before including it. If uncertain → downgrade to ❓.
 
