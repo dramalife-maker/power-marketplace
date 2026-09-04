@@ -2,13 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+- `plugins/dev` 新增 `officecli` skill（Office 文件 CLI 操作）
+
 ### Removed
 - 移除 Kiro Power 支援：刪除 `plugins/dev/.kiro/POWER.md` 與 `plugins/cto/.kiro/POWER.md`
 - `index.json` 移除 `kiro_support`、`kiro_power_path` 欄位
 - `README.md` 移除 Kiro Power 安裝說明
 
 ### Changed
-- `plugins/dev` 版本升至 `1.4.7`
+- `plugins/dev` 版本升至 `1.4.10`
 - `plugins/cto` 版本升至 `1.2.5`
 
 ## [0.2.0] - 2026-06-27

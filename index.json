@@ -4,7 +4,7 @@
     "name": "power-marketplace",
     "owner": "powersafe.lin@gmail.com",
     "description": "個人 Claude Code Skills Marketplace",
-    "updated_at": "2026-07-13",
+    "updated_at": "2026-09-04",
     "total_plugins": 2
   },
   "categories": {
@@ -26,14 +26,14 @@
     {
       "name": "dev",
       "display_name": "Dev Plugin",
-      "version": "1.4.7",
+      "version": "1.4.10",
       "category": "workflow",
       "description": "開發工作流程輔助工具集",
       "tags": ["dev", "workflow"],
       "status": "stable",
       "path": "plugins/dev/",
-      "updated_at": "2026-07-13",
-      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan", "grill-me", "release"]
+      "updated_at": "2026-09-04",
+      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan", "grill-me", "release", "officecli"]
     }
   ]
 }
