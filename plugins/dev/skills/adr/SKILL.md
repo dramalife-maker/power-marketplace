@@ -5,7 +5,7 @@ description: 在專案中建立或維護 Architecture Decision Record (ADR)。�
 
 ## Step 0 — 判斷操作模式
 
-使用 `AskUserQuestion` tool 詢問使用者要做什麼：
+若使用者的訊息已表明模式（例如「這個決策改變了」→ 模式 B），直接進入；否則使用 `AskUserQuestion` tool 詢問（不可用時改以純文字詢問）：
 
 - **新增 ADR**：記錄一個新的架構決策
 - **Supersede 舊 ADR**：某個決策已改變，需標記舊 ADR 並建立新的
@@ -18,14 +18,14 @@ description: 在專案中建立或維護 Architecture Decision Record (ADR)。�
 
 ### Step A1 — 確認下一個編號
 
-列出 `.claude/docs/adr/` 目錄下所有 `.md` 檔案（排除 `index.md`），計算數量決定下一個編號。
+列出 `.claude/docs/adr/` 目錄下所有 `ADR-*.md` 檔案，取檔名編號的最大值。
 
-- 若目錄不存在，下一個編號為 `001`
-- 若已有 N 個 ADR，下一個編號為 N+1，補零至 3 位（例如 `002`, `010`）
+- 若目錄不存在或沒有 ADR，下一個編號為 `001`
+- 否則下一個編號為最大值 +1，補零至 3 位（例如 `002`, `010`）
 
 ### Step A2 — 收集內容
 
-使用 `AskUserQuestion` tool 詢問：
+以純文字一次列出以下問題並等待回覆：
 
 - **標題**：這個決策的簡短名稱（例如「採用 Redis 作為快取層」）
 - **Context**：什麼問題或背景促成這個決策？
@@ -74,14 +74,14 @@ Status 固定為 `Accepted`，日期為今天。
 
 ### Step B2 — 收集新決策內容
 
-使用 `AskUserQuestion` tool 詢問：
+以純文字一次列出以下問題並等待回覆：
 
 - **標題**：新決策的名稱
 - **Context**：決策為何改變？新的背景是什麼？
 - **Decision**：新的決定是什麼？為什麼比舊方案更好？
 - **Consequences**：正面影響與負面影響
 
-新 ADR 會加入 `Supersedes: ADR-<舊編號>` 欄位。
+新 ADR 的編號依 Step A1 規則取得，並加入 `Supersedes: ADR-<舊編號>` 欄位。
 
 ### Step B3 — 更新舊 ADR
 

@@ -3,7 +3,7 @@ name: dev:release
 description: Manage the software release process. Use when asked to prepare a release, update changelogs, or tag a version.
 metadata:
     author: "power"
-    version: "1.1.1"
+    version: "1.1.2"
 ---
 
 # Release Assistant
@@ -19,7 +19,7 @@ This skill guides the AI through the formal release process, ensuring that Chang
     -   Verify the date and version number.
     -   **Update the version comparison links block at the bottom of the file** (do not omit):
         -   Replace the existing `[Unreleased]` link to point at the new version tag: `[<new-version>]: .../compare/v<previous-version>...v<new-version>`
-        -   Re-add `[Unreleased]: .../compare/v<new-version>...develop` at the top of the links block.
+        -   Re-add `[Unreleased]: .../compare/v<new-version>...<current-branch>` at the top of the links block.
         -   If the links block is missing, add it per [write-changelog.md](references/write-changelog.md#版本連結).
 2.  **Review Changes**:
     -   Summarize the changes and suggested version number to the user.
@@ -32,7 +32,7 @@ This skill guides the AI through the formal release process, ensuring that Chang
 4.  **Tag & Push**:
     -   Check existing tags to match format: `git tag --list --sort=-version:refname | head -10`.
     -   Create tag: `git tag <version>`.
-    -   Push tag: `git push origin --tags`.
+    -   Push branch and tag: `git push origin <current-branch> <version>`.
 5.  **Merge to Release Branch** (if applicable):
     -   Check whether any of the following branches exist: `release`, `master`, `main`:
         ```bash

@@ -13,14 +13,14 @@ description: 設定 Dev plugin 的工作目錄偏好（例如計劃日誌路徑�
 
 ## 步驟 2：詢問設定項目
 
-逐一詢問以下項目（括號內為預設值，使用者可直接按 Enter 套用）：
+逐一詢問以下項目（括號內為預設值，使用者回覆「預設」即套用）：
 
 1. **計劃日誌目錄**（預設：`~/plan-journal`）
    > 「請輸入計劃日誌的存放目錄路徑（預設：~/plan-journal）：」
 
 ## 步驟 3：寫入設定檔
 
-將使用者輸入（或預設值）寫入 `~/.claude/plugins/dev/config.json`：
+將使用者輸入（或預設值）合併進 `~/.claude/plugins/dev/config.json`：只更新 `plan_journal_dir`，其他欄位（如 `project_slugs`、`autofix_projects`）必須保留。
 
 ```json
 {

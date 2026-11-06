@@ -11,8 +11,11 @@
 - `README.md` 移除 Kiro Power 安裝說明
 
 ### Changed
-- `plugins/dev` 版本升至 `1.4.10`
-- `plugins/cto` 版本升至 `1.2.5`
+- `plugins/dev` 版本升至 `1.4.11`
+- `plugins/cto` 版本升至 `1.2.6`
+
+### Fixed
+- 修正 `dev`、`cto` skill prompt 審查發現的路徑、流程與觸發描述問題
 
 ## [0.2.0] - 2026-06-27
 

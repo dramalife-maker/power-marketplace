@@ -31,8 +31,8 @@
 
 | Name | Category | Status | Description |
 |------|----------|--------|-------------|
-| `cto` | workflow | stable | 技術主管工作流程工具集（setup、arch-review、1on1-prep、1on1、perf-review） |
-| `dev` | workflow | stable | 開發工作流程輔助工具集（setup、commit-message、post-commit、post-bug、archive-plan、grill-me、release） |
+| `cto` | workflow | stable | 技術主管工作流程工具集（setup、arch-review、1on1-prep、1on1、1on1-add、perf-review、scan-mrs） |
+| `dev` | workflow | stable | 開發工作流程輔助工具集（setup、commit-message、post-commit、post-bug、post-qa、archive-plan、grill-me、release、officecli、adr、autofix、everything-search、powershell-gotchas、pre-review、show-me） |
 
 ---
 

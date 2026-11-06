@@ -35,7 +35,7 @@ description: >-
 
 ## Step 1 — 決定 review 對象
 
-預設審查**未 commit 的變更**：`git diff HEAD`（含 staged 與 unstaged）。
+預設審查**未 commit 的變更**：`git diff HEAD`（含 staged 與 unstaged）。未追蹤的新檔不在其中，另用 `git ls-files --others --exclude-standard` 列出並納入審查範圍。
 
 若使用者帶了參數，依下列判斷對象，並先確認範圍再往下：
 
@@ -59,7 +59,7 @@ description: >-
 - **語言特有檢查項**：例如 Go 看未用 import 與 error wrapping、TS 看型別與 null 安全、Python 看型別註記與例外處理。
 - **是否加派資深 DBA**：掃描 diff 是否涉及 SQL 或資料庫層，命中任一即在 Stage 1 平行加派 `dev:dba` agent：
   - `.sql` 檔、migration 檔（schema DDL、index、constraint、欄位型別／nullability 變更）
-  - ORM／query builder 程式碼（本專案為 GORM：`.Where/.Joins/.Preload/.Select/.Raw/.Group/.Having` 等）、或 `database` / `repository` / `models` 目錄下的查詢或 schema 變更
+  - ORM／query builder 程式碼（例如 GORM：`.Where/.Joins/.Preload/.Select/.Raw/.Group/.Having` 等）、或 `database` / `repository` / `models` 目錄下的查詢或 schema 變更
   - 原生 SQL 字串、stored procedure、view、trigger
   純應用邏輯、與資料存取無關的變更則**不需** DBA —— 不要為了用而用。
 

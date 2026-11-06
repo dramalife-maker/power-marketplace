@@ -14,8 +14,8 @@ Test-driven 的自動 bug 修復迴圈。**不是 grill-me 的設計階段、也
 - ❌ Dry-run 模式（兩個 checkpoint 已經是停損點）
 - ❌ Auto-commit（成功只 stage、commit 留給使用者）
 - ❌ 成功時寫 learning-note（成功不算踩坑、是正常 debug）
-- ❌ 跨 hypothesis 累積 diff（每個 hypothesis 失敗都 `git restore`）
-- ❌ 動 Q4 scope 以外的檔案（除了新增的測試檔）
+- ❌ 跨 hypothesis 累積 diff（每個 hypothesis 失敗都 revert，定義見 Step 5）
+- ❌ 動 Step 1 第 3 點 scope 以外的檔案（除了新增的測試檔）
 
 ---
 
@@ -23,7 +23,7 @@ Test-driven 的自動 bug 修復迴圈。**不是 grill-me 的設計階段、也
 
 跑 `git status`。**working tree 不乾淨就拒絕啟動**（包含 staged / unstaged / untracked），印出 dirty 檔案清單，建議使用者先 `git stash` 或 `git commit`。
 
-例外：使用者顯式帶 `--allow-dirty` 才繞過。
+例外：使用者顯式帶 `--allow-dirty` 才繞過。此時記錄 dirty 檔案清單；scope 確定後，scope 內檔案與測試檔都不得出現在清單中，有重疊就停止並回報。
 
 理由：迴圈會 `git restore` revert，dirty 狀態會被毀掉。
 
@@ -49,7 +49,7 @@ skill 第一輪輸出這段，等使用者一次回答：
 
 第 3 點寫「探索」→ 進入 **Scope 探索子流程**：skill 用 grep / git log / stack trace 推測一個 scope 名單，給使用者點頭再進迴圈。
 
-第 4 點選 `use-existing:<path>` → 跳過 Step 3 的寫測試，直接跑該測試確認真的 fail（綠的話走 11c escalate）。
+第 4 點選 `use-existing:<path>` → 跳過 Step 3 的寫測試，直接跑該測試確認真的 fail（綠的話走 Step 3 `use-existing` 的 escalate）。
 
 第 4 點選 `skip` → 全程跳過測試比對；停止條件改成「build 通過 + 使用者每個 hypothesis 後點頭驗證」。
 
@@ -123,7 +123,7 @@ skill 第一輪輸出這段，等使用者一次回答：
 
 ### skip
 
-跳過 Step 3。停止條件改「build 通過 + 使用者每個 hypothesis 後點頭驗證」 — 進 Step 4 時每試完一個 hypothesis、stage 後問使用者「修好了嗎？」。
+跳過 Step 3。停止條件改「build 通過 + 使用者每個 hypothesis 後點頭驗證」 — 進 Step 5 時每試完一個 hypothesis、stage 後問使用者「修好了嗎？」。
 
 ---
 
@@ -157,30 +157,32 @@ skill 第一輪輸出這段，等使用者一次回答：
 
 ## Step 5 — 修復迴圈（3 hypothesis × 1 attempt × revert）
 
-**進迴圈前**：當前 working tree 應該只有「Step 3 新增的測試檔」。
+**進迴圈前**：當前 working tree 應該只有「Step 3 新增的測試檔」（`--allow-dirty` 時另有 Step 0 記錄的 dirty 檔案）。
+
+**revert 定義**：`git restore --staged --worktree <本輪改動的已追蹤檔>`，並刪除本輪新增的未追蹤檔（Step 3 的測試檔除外）。
 
 依 likelihood 排出 3 個 hypothesis（LLM 自己排）。**逐一執行**：
 
 ### 對每個 hypothesis：
 
-1. 出最小 patch — **只准動 Q4 scope 內檔案 + 測試檔**。違反就 abort 該 hypothesis。
+1. 出最小 patch — **只准動 Step 1 第 3 點 scope 內檔案 + 測試檔**。違反就 abort 該 hypothesis。
 2. 跑 target test：
-   - **紅** → `git restore <scope 內檔案>` → 換下一個 hypothesis
+   - **紅** → revert → 換下一個 hypothesis
    - **綠** → 進步驟 3
 3. 跑全 suite（套 `test_timeout_ms`）：
-   - 出現 baseline 沒有的「新紅燈」 → `git restore` → 換下一個
+   - 出現 baseline 沒有的「新紅燈」 → revert → 換下一個
    - 沒有新紅燈 → **跳出迴圈進 Step 6a**
 
 ### 三個都失敗：
 
-`git restore` 確認乾淨 → 進 **Checkpoint 2 / Step 6b**。
+revert 後確認乾淨 → 進 **Checkpoint 2 / Step 6b**。
 
 ### Skip 模式特例
 
 沒測試可比對時，每個 hypothesis 改成：
 1. 出最小 patch
 2. 跑 build（語言對應的 build 指令；偵測同 Step 2）
-3. build 過 → stage 後問使用者「修好了嗎？」 — 點頭跳 Step 6a；搖頭 `git restore` 換下一個
+3. build 過 → stage 後問使用者「修好了嗎？」 — 點頭跳 Step 6a；搖頭 revert 換下一個
 
 ---
 
@@ -203,7 +205,7 @@ skill 第一輪輸出這段，等使用者一次回答：
 
 下一步：
   git diff --staged   # 審查
-  /dev:commit-message # 產 commit 訊息
+  /dev:post-commit    # 產 commit 訊息
 ```
 
 3. **結束**。不寫 learning-note、不 auto-commit。
@@ -214,7 +216,7 @@ skill 第一輪輸出這段，等使用者一次回答：
 
 3 個 hypothesis 都失敗時：
 
-1. 確認 `git status` 乾淨（只剩 Step 3 的測試檔可能還在 — 也 revert 掉，避免污染）
+1. 確認 `git status` 只剩 Step 3 的測試檔，再清掉它：新檔直接刪除；改到既有檔用 `git restore --staged --worktree <檔案>`；`use-existing` 的測試檔不動
 2. 印報告：
 
 ```
@@ -278,6 +280,6 @@ H3 <一行描述>
 
 - **誠實回報**：fail 訊息不吻合就講不吻合、不硬拗成功
 - **明確點頭**：Checkpoint 1 必須等 explicit y/yes、不允許「使用者沒回就跑」
-- **乾淨切段**：每個 hypothesis 失敗一定 `git restore`，不堆改
+- **乾淨切段**：每個 hypothesis 失敗一定 revert，不堆改
 - **單一職責**：learning-note 只委派、不重做 post-bug 的工作
 - **不擴張**：scope 外檔案永遠不動，包含成功 hypothesis 也不允許「順便改一下」

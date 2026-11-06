@@ -6,6 +6,7 @@ description: >
   並可將審查摘要寫入對應工程師的 1on1 紀錄。
   支援「指定 MR」捷徑、分輪審查（第一輪 / 第二輪）、
   發佈前事實查核、與同類模組對照。
+  當使用者說「掃 MR」、「scan mrs」、「看一下 <project>!<iid>」、「review 這個 MR」時使用此 skill。
 ---
 
 # MR 掃描與審查 Skill
@@ -26,7 +27,13 @@ description: >
 | 指定 MR | 「看一下 transaction/server!72」、「review 這個 MR」 | Step 1、3 |
 | 本地分支捷徑 | 同上，且 cwd 已在該 MR 的 `source_branch` | Step 1、3、4a |
 
-指定模式下直接跳到 Step 2 判斷輪次，再進 Step 4。
+指定模式下跳過 Step 1，先取得 Step 1 列出的 MR 欄位，再到 Step 2 判斷輪次，然後進 Step 4：
+
+```bash
+glab api "projects/{url-encoded project path}/merge_requests/{iid}"
+```
+
+project path 的 `/` 要編碼成 `%2F`，例如 `transaction%2Fserver`。
 
 ---
 
@@ -116,7 +123,7 @@ git -C ~/.claude/review-repos/{project_path} checkout {source_branch}
 git -C ~/.claude/review-repos/{project_path} pull
 ```
 
-> **本地分支捷徑**：若 cwd 已在 `source_branch`，跳過此步，改用 `git diff {target_branch}...HEAD` 取得 diff。
+> **本地分支捷徑**：若 cwd 已在 `source_branch`，跳過此步，先 `git fetch origin {target_branch}`，再用 `git diff origin/{target_branch}...HEAD` 取得 diff；4c 的檔案路徑改以 cwd 為根。
 
 ### 4b. 取得變更檔案清單
 
@@ -130,7 +137,7 @@ glab api "projects/{project_id}/merge_requests/{iid}/changes" --jq '.changes[].n
 
 對每個 changed file：
 - source branch 版本：直接讀 `~/.claude/review-repos/{project_path}/{file_path}`
-- target branch 版本：`git -C ~/.claude/review-repos/{project_path} show {target_branch}:{file_path}`
+- target branch 版本：`git -C ~/.claude/review-repos/{project_path} show origin/{target_branch}:{file_path}`
 
 **同類模組對照（變更為新模組／整合層時必做）：**
 
@@ -227,7 +234,7 @@ glab mr note {iid} -R {project_path} --message "{review_content}"
 
 > 「要將這次對 {author.username} 的審查摘要寫入 1on1 紀錄嗎？」
 
-依 `~/.claude/plugins/cto/references/1on1-writing-rules.md` 規則寫入。
+依 [1on1-writing-rules.md](../../references/1on1-writing-rules.md) 規則寫入。
 
 **寫入位置判斷：**
 
@@ -266,12 +273,20 @@ glab mr note {iid} -R {project_path} --message "{review_content}"
 
 ### 4i. 無問題時詢問是否 merge
 
-若草稿中無任何 ❌ 項目，詢問：「此 MR 無問題，要直接 merge 嗎？」
+先查 pipeline：
+
+```bash
+glab api "projects/{project_id}/merge_requests/{iid}"
+```
+
+詢問條件：草稿無任何 ❌ 與 ❓，且回應的 `head_pipeline.status` 為 `success`。`head_pipeline` 為 `null`（專案沒有 pipeline）時也可詢問，但要註明沒有 pipeline 結果。不符合就結束，不提 merge。
+
+符合時詢問：「此 MR 無待處理項目，要直接 merge 嗎？」
 
 使用者確認後：
 
 ```bash
-glab mr merge {iid} -R {project_path} --remove-source-branch
+glab mr merge {iid} -R {project_path} --remove-source-branch --yes
 ```
 
 ---
@@ -288,5 +303,5 @@ glab mr merge {iid} -R {project_path} --remove-source-branch
 
 ## 參考文件
 
-- `~/.claude/plugins/cto/references/1on1-writing-rules.md`：1on1 寫入規則（共用）
-- `~/.claude/plugins/cto/skills/arch-review/references/general-criteria.md`：通用審查標準
+- [1on1-writing-rules.md](../../references/1on1-writing-rules.md)：1on1 寫入規則（共用）
+- [general-criteria.md](../arch-review/references/general-criteria.md)：通用審查標準

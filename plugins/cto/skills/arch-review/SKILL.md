@@ -3,9 +3,10 @@ name: cto:arch-review
 description: >
   對工程師提交的系統架構或程式碼進行技術審查，並將審查摘要寫入 1on1 紀錄。
   當 CTO 或技術主管需要審查工程師的設計文件、程式碼草稿、PR diff，
-  或是在說「幫我審查這個架構」、「review 這份設計」、「看一下這個 diff」
+  或是在說「幫我審查這個架構」、「review 這份設計」
   等情境時，務必使用此 skill。支援從 CLAUDE.md 或指定文件讀取專案標準，
   並在審查後詢問是否寫入 1on1 紀錄。
+  自己 commit 前的審查用 dev:pre-review；GitLab MR 用 cto:scan-mrs。
 ---
 
 # 架構審查 Skill
@@ -44,7 +45,7 @@ description: >
 ## Step 2：讀取專案標準
 
 ```
-1. 嘗試讀取 ./CLAUDE.md 或 ~/CLAUDE.md
+1. 嘗試讀取 ./CLAUDE.md 或 ~/.claude/CLAUDE.md
 2. 從中提取審查相關的技術標準、架構原則、禁止事項
 3. 若有專案 memory 紀錄（見 Step 5），也一併載入作為補充上下文
 ```
@@ -69,7 +70,7 @@ description: >
 - 測試覆蓋是否足夠
 
 **SQL 專項審查：**
-若程式碼含有 SQL query（GORM、`db.Raw`、`tx.Exec`、migration），**必須 spawn `dba` agent** 進行專項審查，再將結果整合入審查意見。dba agent prompt 應包含：
+若程式碼含有 SQL query（GORM、`db.Raw`、`tx.Exec`、migration），**必須 spawn `dev:dba` agent** 進行專項審查，再將結果整合入審查意見。dba agent prompt 應包含：
 - 每段 SQL 的等效語句與執行背景（哪個資料庫、transaction 內或外）
 - 資料量量級的已知假設（若有）
 - 要求回報安全性、效能（index、鎖競爭、N+1）、正確性問題，標示嚴重度（高/中/低）
@@ -112,7 +113,7 @@ description: >
 等使用者確認後才執行寫入。
 
 目錄結構、`index.md` 格式、`_notes.md` 格式、初次建立規則，見
-`~/.claude/plugins/cto/references/1on1-writing-rules.md`。
+[1on1-writing-rules.md](../../references/1on1-writing-rules.md)。
 
 ### YYYY-MM.md 寫入格式
 
@@ -163,5 +164,5 @@ description: >
 
 ## 參考文件
 
-- `~/.claude/plugins/cto/skills/arch-review/references/general-criteria.md`：無 CLAUDE.md 時的通用審查標準
-- `~/.claude/plugins/cto/references/1on1-writing-rules.md`：1on1 紀錄寫入規則（共用）
+- [references/general-criteria.md](references/general-criteria.md)：無 CLAUDE.md 時的通用審查標準
+- [1on1-writing-rules.md](../../references/1on1-writing-rules.md)：1on1 紀錄寫入規則（共用）

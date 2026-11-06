@@ -51,9 +51,11 @@
 ## 版本連結
 在檔案底部維護版本比較連結：
 ```markdown
-[Unreleased]: https://git.ttech.cc/transaction/server/-/compare/v當前版本...develop
-[版本號]: https://git.ttech.cc/transaction/server/-/compare/v前一版本...v當前版本
+[Unreleased]: <repo-url>/-/compare/v當前版本...<開發分支>
+[版本號]: <repo-url>/-/compare/v前一版本...v當前版本
 ```
+
+`<repo-url>` 由 `git remote get-url origin` 推導，`<開發分支>` 為發版所在分支。GitHub 的 compare 路徑沒有 `/-/`。
 
 ## 注意事項
 1. 永遠保持 [Unreleased] 區段在最上方

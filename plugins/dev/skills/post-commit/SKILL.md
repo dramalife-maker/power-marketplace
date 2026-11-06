@@ -1,6 +1,6 @@
 ---
 name: dev:post-commit
-description: 請根據以下步驟，提供 commit message 的建議。
+description: 依 staged 變更草擬符合 repo 慣例的 commit message，確認後可代為 commit。當使用者要 commit、或要你寫／建議 commit message 時使用此 skill。
 ---
 
 ## 步驟 1：分析變更內容
@@ -28,7 +28,7 @@ git --no-pager log --oneline -15
 ```
 
 觀察以下細節，並在不違背 `dev:commit-message` skill 核心規範的前提下，讓格式與 repo 現有風格一致：
-- emoji 的使用方式（實際 emoji 或 `:emoji:` 格式，或是否省略）
+- emoji 的使用方式（實際 emoji 或 `:emoji:` 格式）
 - scope 是否為必填、常用哪些 scope
 - 其他一致性的寫法習慣
 

@@ -28,7 +28,7 @@ Keep entries short and concrete: the symptom, the cause, the fix.
 
 | Area | Don't | Do |
 |------|-------|----|
-| Multi-line `git -m` | `git commit -m @'...'@` (here-string) | repeated `-m` flags |
+| Multi-line `git -m` | here-string `@'...'@` in the Bash tool | here-string in the PowerShell tool, or repeated `-m` flags |
 | `head -n` / `tail -n` | `head file` / `tail file` | `Get-Content file -TotalCount N` / `-Tail N` |
 | `which cmd` | `which cmd` | `(Get-Command cmd).Source` |
 | Discard stderr | `2>/dev/null` | `2>$null` |
@@ -41,23 +41,26 @@ Keep entries short and concrete: the symptom, the cause, the fix.
 
 ## Entries
 
-### git commit -m with here-string leaks literal `@`
+### git commit -m with here-string leaks literal `@` in the Bash tool
 
 **Symptom:** A commit made with `git commit -m @'...'@` ends up with a literal
 `@` as its own line at the very start and a `@` at the end of the message.
 
-**Cause:** PowerShell here-string `@'...'@` passed directly as a `-m` argument is
-not reliably parsed as a here-string in this position; the surrounding `@` / `'@`
-delimiters get handed to git as message content.
+**Cause:** The command ran through the Bash tool. Bash reads `@'...'@` as a
+literal `@`, a quoted string, and another literal `@`. PowerShell 7 parses the
+same here-string correctly.
 
-**Fix:** Use one `-m` flag per paragraph — git joins them with blank lines:
+**Fix:** Run it in the PowerShell tool, with the closing `'@` at column 0:
 
 ```powershell
-git commit -m ":sparkles: subject line" -m "Body paragraph explaining why." -m "Co-Authored-By: ..."
+git commit -m @'
+:sparkles: subject line
+
+Body paragraph explaining why.
+'@
 ```
 
-This sidesteps here-string parsing entirely. If you genuinely need a here-string
-(e.g. content with many lines), write it to a temp file and use `git commit -F file`.
+From the Bash tool, use one `-m` flag per paragraph or `git commit -F file`.
 
 ---
 

@@ -9,7 +9,7 @@ AI-friendly CLI for .docx, .xlsx, .pptx. Single binary, no dependencies, no Offi
 
 ## Install
 
-If `officecli` is not installed:
+If `officecli` is not installed, show the user the command below and run it only after they confirm (it pipes a remote script into a shell):
 
 ```bash
 # macOS / Linux

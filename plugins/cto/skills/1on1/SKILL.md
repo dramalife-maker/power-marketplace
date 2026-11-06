@@ -71,7 +71,7 @@ description: >
 ## Step 4：寫入紀錄
 
 目錄結構、`index.md` 格式、`_notes.md` 格式、初次建立規則，見
-`~/.claude/plugins/cto/references/1on1-writing-rules.md`。
+[1on1-writing-rules.md](../../references/1on1-writing-rules.md)。
 
 使用者確認後，執行以下寫入：
 
@@ -91,4 +91,4 @@ description: >
 
 ## Step 5：確認完成
 
-> 「已寫入 ~/1on1/<工程師名字>/<YYYY-MM>.md。」
+> 「已寫入 <1on1_dir>/<工程師名字>/<YYYY-MM>.md。」

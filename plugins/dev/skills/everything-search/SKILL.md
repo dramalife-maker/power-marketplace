@@ -9,7 +9,7 @@ Wraps voidtools' Everything CLI to find files/folders by name across the entire 
 
 ## Prerequisite
 
-Requires `es` (the Everything CLI) to be on PATH, and the Everything background service (Everything.exe) running and indexing. If `es` isn't found, or a command fails with `ERROR: failed to connect to Everything`, tell the user the CLI/service isn't set up and fall back to Glob/Bash `find` — do not retry in a loop.
+Requires `es` (the Everything CLI) to be on PATH, and the Everything background service (Everything.exe) running and indexing. If `es` isn't found, or a command fails with `Error 8: Everything IPC not found`, tell the user the CLI/service isn't set up and fall back to Glob/Bash `find` — do not retry in a loop.
 
 ## When to use vs Glob/Grep
 
@@ -30,6 +30,8 @@ es -n 20 -path "<dir>" <keyword># limit search to a subtree
 es -n 20 -p <keyword>           # match against full path, not just filename
 ```
 
+In the Bash tool (Git Bash), `/a-d` and `/ad` get rewritten into Windows paths. Prefix the command with `MSYS_NO_PATHCONV=1`, or run it in the PowerShell tool.
+
 Key flags:
 - `-n <num>` — max results (always set this)
 - `-r`/`-regex` — regex search
@@ -38,6 +40,6 @@ Key flags:
 - `-p`/`-match-path` — match full path instead of filename only
 - `/a-d` — files only, `/ad` — folders only
 - `-path <dir>` — restrict to subtree
-- `-s`/`-sort <field>` — e.g. `-sort date-modified` (add `-sort-descending` for newest first)
+- `-sort <field>` — e.g. `-sort date-modified-descending` for newest first
 
 Full flag reference: https://www.voidtools.com/support/everything/command_line_interface/

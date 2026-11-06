@@ -4,7 +4,7 @@
     "name": "power-marketplace",
     "owner": "powersafe.lin@gmail.com",
     "description": "個人 Claude Code Skills Marketplace",
-    "updated_at": "2026-09-04",
+    "updated_at": "2026-11-06",
     "total_plugins": 2
   },
   "categories": {
@@ -14,26 +14,26 @@
     {
       "name": "cto",
       "display_name": "CTO Plugin",
-      "version": "1.2.5",
+      "version": "1.2.6",
       "category": "workflow",
       "description": "技術主管工作流程工具集",
       "tags": ["cto", "review", "1on1"],
       "status": "stable",
       "path": "plugins/cto/",
-      "updated_at": "2026-07-13",
-      "skills": ["setup", "arch-review", "1on1-prep", "1on1", "1on1-add", "perf-review"]
+      "updated_at": "2026-11-06",
+      "skills": ["setup", "arch-review", "1on1-prep", "1on1", "1on1-add", "perf-review", "scan-mrs"]
     },
     {
       "name": "dev",
       "display_name": "Dev Plugin",
-      "version": "1.4.10",
+      "version": "1.4.11",
       "category": "workflow",
       "description": "開發工作流程輔助工具集",
       "tags": ["dev", "workflow"],
       "status": "stable",
       "path": "plugins/dev/",
-      "updated_at": "2026-09-04",
-      "skills": ["setup", "commit-message", "post-commit", "post-bug", "archive-plan", "grill-me", "release", "officecli"]
+      "updated_at": "2026-11-06",
+      "skills": ["setup", "commit-message", "post-commit", "post-bug", "post-qa", "archive-plan", "grill-me", "release", "officecli", "adr", "autofix", "everything-search", "powershell-gotchas", "pre-review", "show-me"]
     }
   ]
 }
